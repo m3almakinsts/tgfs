@@ -10,7 +10,7 @@ logging.basicConfig(
 
 # Absolute paths
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-SOURCE_CONFIG = os.path.join(BASE_DIR, "config.yaml")
+SOURCE_CONFIG = os.path.join(BASE_DIR, "demo-config.yaml")
 TARGET_DIR = "/home/tgfs/.tgfs"
 TARGET_CONFIG = os.path.join(TARGET_DIR, "config.yaml")
 
