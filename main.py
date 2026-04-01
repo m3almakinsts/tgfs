@@ -2,6 +2,7 @@ import os
 import shutil
 import asyncio
 import logging
+import yaml
 
 logging.basicConfig(
     level=logging.INFO,
@@ -30,6 +31,26 @@ if found:
     print("COPIED CONFIG TO", TARGET_CONFIG)
 else:
     print("NO CONFIG FILE FOUND IN PROJECT")
+
+print("EXISTS AFTER COPY =", os.path.exists(TARGET_CONFIG))
+
+github_token = os.environ.get("GITHUB_TOKEN")
+print("GITHUB TOKEN PRESENT =", bool(github_token))
+
+if os.path.exists(TARGET_CONFIG):
+    with open(TARGET_CONFIG, "r", encoding="utf-8") as f:
+        data = yaml.safe_load(f)
+
+    if github_token:
+        metadata = data.get("tgfs", {}).get("metadata", {})
+        for cfg in metadata.values():
+            if isinstance(cfg, dict) and cfg.get("type") == "github_repo":
+                cfg["access_token"] = github_token
+        with open(TARGET_CONFIG, "w", encoding="utf-8") as f:
+            yaml.safe_dump(data, f, sort_keys=False)
+        print("INJECTED GITHUB TOKEN INTO CONFIG")
+    else:
+        print("NO GITHUB_TOKEN ENV VAR FOUND")
 
 print("FINAL EXISTS =", os.path.exists(TARGET_CONFIG))
 print("=== TGFS DEBUG END ===")
