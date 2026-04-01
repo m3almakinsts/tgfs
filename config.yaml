@@ -1,6 +1,6 @@
 telegram:
   api_id: '37009125'
-  api_hash: ' 3d2bd76f2d6380f91ab4599ce4a202ff'
+  api_hash: '3d2bd76f2d6380f91ab4599ce4a202ff'
   lib: telethon
   bot:
     session_file: bot.session
