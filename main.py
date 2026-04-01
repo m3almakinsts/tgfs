@@ -2,7 +2,6 @@ import os
 import shutil
 import asyncio
 import logging
-import yaml
 
 logging.basicConfig(
     level=logging.INFO,
@@ -31,34 +30,6 @@ if found:
     print("COPIED CONFIG TO", TARGET_CONFIG)
 else:
     print("NO CONFIG FILE FOUND IN PROJECT")
-
-print("EXISTS AFTER COPY =", os.path.exists(TARGET_CONFIG))
-
-github_token = os.environ.get("GITHUB_TOKEN", "").strip()
-print("GITHUB TOKEN PRESENT =", bool(github_token))
-print("GITHUB TOKEN LENGTH =", len(github_token))
-
-if os.path.exists(TARGET_CONFIG):
-    with open(TARGET_CONFIG, "r", encoding="utf-8") as f:
-        data = yaml.safe_load(f) or {}
-
-    metadata = data.get("tgfs", {}).get("metadata", {})
-    for channel_id, cfg in metadata.items():
-        if isinstance(cfg, dict) and cfg.get("type") == "github_repo":
-            cfg["access_token"] = github_token
-            print("INJECTED TOKEN FOR", channel_id)
-            print("REPO FOR", channel_id, "=", cfg.get("repo"))
-
-    with open(TARGET_CONFIG, "w", encoding="utf-8") as f:
-        yaml.safe_dump(data, f, sort_keys=False)
-
-    with open(TARGET_CONFIG, "r", encoding="utf-8") as f:
-        verify = yaml.safe_load(f) or {}
-
-    for channel_id, cfg in verify.get("tgfs", {}).get("metadata", {}).items():
-        token_len = len((cfg.get("access_token") or "").strip())
-        print("VERIFIED TOKEN LENGTH FOR", channel_id, "=", token_len)
-        print("VERIFIED REPO FOR", channel_id, "=", cfg.get("repo"))
 
 print("FINAL EXISTS =", os.path.exists(TARGET_CONFIG))
 print("=== TGFS DEBUG END ===")
