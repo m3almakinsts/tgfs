@@ -16,7 +16,14 @@ class GithubRepoMetadataRepository(IMetaDataRepository):
     def __init__(self, config: GithubRepoConfig):
         super().__init__()
 
-        gh = Github(config.access_token)
+        token = (config.access_token or "").strip()
+
+        if token:
+            gh = Github(token)
+            logger.info("Using authenticated GitHub client")
+        else:
+            gh = Github()
+            logger.info("Using anonymous GitHub client")
 
         self._ghc = GithubConfig(
             gh=gh,
