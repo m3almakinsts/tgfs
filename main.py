@@ -4,22 +4,26 @@ import asyncio
 import logging
 
 logging.basicConfig(
-    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s",
 )
 
-# Create the folder TGFS expects
+# Make sure TGFS config exists at the path the app expects
 os.makedirs("/home/tgfs/.tgfs", exist_ok=True)
 
-# Copy your repo config.yaml to the path TGFS wants
 if os.path.exists("config.yaml"):
     shutil.copy("config.yaml", "/home/tgfs/.tgfs/config.yaml")
     logging.info("config.yaml copied to /home/tgfs/.tgfs/config.yaml")
 else:
     logging.error("config.yaml not found in repo root")
 
+logging.info(
+    "config exists after copy: %s",
+    os.path.exists("/home/tgfs/.tgfs/config.yaml"),
+)
+
 try:
     import uvloop  # type: ignore[import]
-
     uvloop.install()
 except ImportError:
     logging.warning("uvloop is not installed, using default event loop")
@@ -67,12 +71,13 @@ async def create_clients(config: Config) -> Clients:
                 else False
             ),
         )
+
     return clients
 
 
-async def run_server(app, host: str, port: int, name: str):
+async def run_server(app, host: str, port: int, name: str) -> None:
     logger = logging.getLogger(__name__)
-    logger.info(f"Starting {name} server on {host}:{port}")
+    logger.info("Starting %s server on %s:%s", name, host, port)
 
     server_config = UvicornConfig(
         app,
@@ -85,11 +90,9 @@ async def run_server(app, host: str, port: int, name: str):
     await server.serve()
 
 
-async def main():
+async def main() -> None:
     config = get_config()
-
     clients = await create_clients(config)
-
     app = create_app(clients, config)
     await run_server(app, config.tgfs.server.host, config.tgfs.server.port, "TGFS")
 
