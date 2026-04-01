@@ -37,6 +37,8 @@ COPY --from=builder /usr/local/bin /usr/local/bin
 COPY tgfs/ ./tgfs/
 COPY asgidav/ ./asgidav/
 COPY main.py ./
+COPY config.yaml /app/config.yaml
+COPY demo-config.yaml /app/demo-config.yaml
 
 # Create non-root user
 RUN useradd --create-home --shell /bin/bash tgfs
