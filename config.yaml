@@ -25,7 +25,7 @@ tgfs:
       github_repo:
           repo: m3almakinsts/tgfs
           commit: master
-          access_token: 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
+          access_token: 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
   server:
     host: 0.0.0.0
     port: 1900
