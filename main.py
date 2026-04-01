@@ -133,7 +133,11 @@ async def main() -> None:
     config = get_config()
     clients = await create_clients(config)
     app = create_app(clients, config)
-    await run_server(app, config.tgfs.server.host, config.tgfs.server.port, "TGFS")
+
+    host = "0.0.0.0"
+    port = int(os.environ.get("PORT", 10000))
+
+    await run_server(app, host, port, "TGFS")
 
 
 if __name__ == "__main__":
