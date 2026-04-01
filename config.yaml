@@ -1,32 +1,35 @@
 telegram:
-  api_id: '37009125'
-  api_hash: '3d2bd76f2d6380f91ab4599ce4a202ff'
+  api_id: "37009125"
+  api_hash: "3d2bd76f2d6380f91ab4599ce4a202ff"
   lib: telethon
   bot:
     session_file: bot.session
     tokens:
-      - 8695600581:AAHIEQM8RqJkt455dew7FG7Od3kdCVM_qtE
+      - "8695600581:AAHIEQM8RqJkt455dew7FG7Od3kdCVM_qtE"
   private_file_channel:
-    - '-1003737989478'
+    - "-1003737989478"
+
 tgfs:
   users:
     username:
       password: password
+
   download:
     chunk_size_kb: 1024
+
   jwt:
-    secret: f+r$J[{jVt,WFFxY:bnau?W@|>{oVI@gL^8l<dB1QYIa,^)JwN[jkjtk7%Z%w_8Y
+    secret: "f+r$J[{jVt,WFFxY:bnau?W@|>{oVI@gL^8l<dB1QYIa,^)JwN[jkjtk7%Z%w_8Y"
     algorithm: HS256
     life: 604800
-  tgfs:
+
   metadata:
     "-1003737989478":
       name: Database
       type: github_repo
-      github_repo:
-        repo: "m3almakinsts/tgfs"
-        commit: "master"
-        access_token: ""
+      repo: "m3almakinsts/tgfs"
+      commit: "master"
+      access_token: ""
+
   server:
-    host: 0.0.0.0
+    host: "0.0.0.0"
     port: 10000
