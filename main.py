@@ -8,19 +8,23 @@ logging.basicConfig(
     format="%(asctime)s - %(levelname)s - %(message)s",
 )
 
-# Make sure TGFS config exists at the path the app expects
-os.makedirs("/home/tgfs/.tgfs", exist_ok=True)
+# Absolute paths
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+SOURCE_CONFIG = os.path.join(BASE_DIR, "config.yaml")
+TARGET_DIR = "/home/tgfs/.tgfs"
+TARGET_CONFIG = os.path.join(TARGET_DIR, "config.yaml")
 
-if os.path.exists("config.yaml"):
-    shutil.copy("config.yaml", "/home/tgfs/.tgfs/config.yaml")
-    logging.info("config.yaml copied to /home/tgfs/.tgfs/config.yaml")
+# Ensure target folder exists
+os.makedirs(TARGET_DIR, exist_ok=True)
+
+# Copy config before importing tgfs
+if os.path.exists(SOURCE_CONFIG):
+    shutil.copyfile(SOURCE_CONFIG, TARGET_CONFIG)
+    logging.info("Copied config from %s to %s", SOURCE_CONFIG, TARGET_CONFIG)
 else:
-    logging.error("config.yaml not found in repo root")
+    logging.error("Source config not found at %s", SOURCE_CONFIG)
 
-logging.info(
-    "config exists after copy: %s",
-    os.path.exists("/home/tgfs/.tgfs/config.yaml"),
-)
+logging.info("Target config exists: %s", os.path.exists(TARGET_CONFIG))
 
 try:
     import uvloop  # type: ignore[import]
