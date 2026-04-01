@@ -8,26 +8,30 @@ logging.basicConfig(
     format="%(asctime)s - %(levelname)s - %(message)s",
 )
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-SOURCE_CONFIG = os.path.join(BASE_DIR, "demo-config.yaml")
 TARGET_DIR = "/home/tgfs/.tgfs"
 TARGET_CONFIG = os.path.join(TARGET_DIR, "config.yaml")
 
-print("=== TGFS DEBUG START ===")
-print("BASE_DIR =", BASE_DIR)
-print("FILES =", os.listdir(BASE_DIR))
-print("SOURCE_CONFIG =", SOURCE_CONFIG)
-print("SOURCE_EXISTS =", os.path.exists(SOURCE_CONFIG))
-
 os.makedirs(TARGET_DIR, exist_ok=True)
 
-if os.path.exists(SOURCE_CONFIG):
-    shutil.copyfile(SOURCE_CONFIG, TARGET_CONFIG)
+found = None
+for root, dirs, files in os.walk("/app"):
+    if "config.yaml" in files:
+        found = os.path.join(root, "config.yaml")
+        break
+    if "demo-config.yaml" in files:
+        found = os.path.join(root, "demo-config.yaml")
+        break
+
+print("=== TGFS DEBUG START ===")
+print("FOUND CONFIG =", found)
+
+if found:
+    shutil.copyfile(found, TARGET_CONFIG)
     print("COPIED CONFIG TO", TARGET_CONFIG)
 else:
-    print("CONFIG NOT FOUND")
+    print("NO CONFIG FILE FOUND IN PROJECT")
 
-print("TARGET_EXISTS =", os.path.exists(TARGET_CONFIG))
+print("FINAL EXISTS =", os.path.exists(TARGET_CONFIG))
 print("=== TGFS DEBUG END ===")
 
 try:
