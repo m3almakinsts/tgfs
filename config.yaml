@@ -23,12 +23,13 @@ tgfs:
     life: 604800
 
   metadata:
-    "-1003737989478":
-      name: Database
-      type: github_repo
+  "-1003737989478":
+    name: Database
+    type: github_repo
+    github_repo:
       repo: "m3almakinsts/tgfs"
       commit: "master"
-      access_token: ""
+      access_token: ""access_token: ""
 
   server:
     host: "0.0.0.0"
