@@ -18,13 +18,14 @@ tgfs:
     secret: f+r$J[{jVt,WFFxY:bnau?W@|>{oVI@gL^8l<dB1QYIa,^)JwN[jkjtk7%Z%w_8Y
     algorithm: HS256
     life: 604800
+  tgfs:
   metadata:
-    '-1003737989778':
+    "-1003737989478":
       name: Database
       type: github_repo
-      github_repo:
-          repo: m3almakinsts/tgfs
-          commit: master
+      repo: "m3almakinsts/tgfs"
+      commit: "master"
+      access_token: "from_env"
   server:
     host: 0.0.0.0
     port: 1900
