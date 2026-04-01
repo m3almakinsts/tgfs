@@ -21,7 +21,7 @@ tgfs:
   metadata:
     '-1003737989778':
       name: Database
-      type: pinned_message
+      type: github_repo
       github_repo:
           repo: m3almakinsts/tgfs
           commit: master
