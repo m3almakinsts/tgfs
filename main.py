@@ -1,11 +1,3 @@
-import os
-import shutil
-
-os.makedirs("/home/tgfs/.tgfs", exist_ok=True)
-
-if os.path.exists("config.yaml"):
-    shutil.copy("config.yaml", "/home/tgfs/.tgfs/config.yaml")
-    
 import asyncio
 import logging
 
