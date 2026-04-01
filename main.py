@@ -1,9 +1,21 @@
+import os
+import shutil
 import asyncio
 import logging
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
+
+# Create the folder TGFS expects
+os.makedirs("/home/tgfs/.tgfs", exist_ok=True)
+
+# Copy your repo config.yaml to the path TGFS wants
+if os.path.exists("config.yaml"):
+    shutil.copy("config.yaml", "/home/tgfs/.tgfs/config.yaml")
+    logging.info("config.yaml copied to /home/tgfs/.tgfs/config.yaml")
+else:
+    logging.error("config.yaml not found in repo root")
 
 try:
     import uvloop  # type: ignore[import]
@@ -59,7 +71,6 @@ async def create_clients(config: Config) -> Clients:
 
 
 async def run_server(app, host: str, port: int, name: str):
-    """Run a server with proper configuration"""
     logger = logging.getLogger(__name__)
     logger.info(f"Starting {name} server on {host}:{port}")
 
