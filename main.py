@@ -8,23 +8,27 @@ logging.basicConfig(
     format="%(asctime)s - %(levelname)s - %(message)s",
 )
 
-# Absolute paths
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 SOURCE_CONFIG = os.path.join(BASE_DIR, "demo-config.yaml")
 TARGET_DIR = "/home/tgfs/.tgfs"
 TARGET_CONFIG = os.path.join(TARGET_DIR, "config.yaml")
 
-# Ensure target folder exists
+print("=== TGFS DEBUG START ===")
+print("BASE_DIR =", BASE_DIR)
+print("FILES =", os.listdir(BASE_DIR))
+print("SOURCE_CONFIG =", SOURCE_CONFIG)
+print("SOURCE_EXISTS =", os.path.exists(SOURCE_CONFIG))
+
 os.makedirs(TARGET_DIR, exist_ok=True)
 
-# Copy config before importing tgfs
 if os.path.exists(SOURCE_CONFIG):
     shutil.copyfile(SOURCE_CONFIG, TARGET_CONFIG)
-    logging.info("Copied config from %s to %s", SOURCE_CONFIG, TARGET_CONFIG)
+    print("COPIED CONFIG TO", TARGET_CONFIG)
 else:
-    logging.error("Source config not found at %s", SOURCE_CONFIG)
+    print("CONFIG NOT FOUND")
 
-logging.info("Target config exists: %s", os.path.exists(TARGET_CONFIG))
+print("TARGET_EXISTS =", os.path.exists(TARGET_CONFIG))
+print("=== TGFS DEBUG END ===")
 
 try:
     import uvloop  # type: ignore[import]
