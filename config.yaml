@@ -3,9 +3,6 @@ telegram:
   api_hash: ' 3d2bd76f2d6380f91ab4599ce4a202ff'
   lib: telethon
   account:
-    session_file: account.session
-    used_to_upload: false
-    used_to_download: false
   bot:
     session_file: bot.session
     tokens:
