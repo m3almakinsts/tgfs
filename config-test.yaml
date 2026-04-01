@@ -27,9 +27,9 @@ tgfs:
       name: Database
       type: pinned_message
       github_repo:
-          repo: test_user/test_repo
-          commit: branch
-          access_token: test_github_access_token
+          repo: m3almakinsts/tgfs
+          commit: master
+          access_token: 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
   server:
     host: 0.0.0.0
     port: 1900
