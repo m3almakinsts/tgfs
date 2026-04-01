@@ -23,9 +23,10 @@ tgfs:
     "-1003737989478":
       name: Database
       type: github_repo
-      repo: "m3almakinsts/tgfs"
-      commit: "master"
-      access_token: "from_env"
+      github_repo:
+        repo: "m3almakinsts/tgfs"
+        commit: "master"
+        access_token: "from_env"
   server:
     host: 0.0.0.0
     port: 1900
